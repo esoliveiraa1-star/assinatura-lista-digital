@@ -281,7 +281,7 @@ async function analisarArquivo(f){
     var buf=new Uint8Array(await f.arrayBuffer());
     if(String.fromCharCode(buf[0],buf[1],buf[2],buf[3])!=='%PDF'){t.className='hint err';t.textContent='Este arquivo não é um PDF.';return}
     garanteWorker();
-    var doc=await pdfjsLib.getDocument({data:buf.slice()}).promise;
+    var doc=await pdfjsLib.getDocument({data:buf.slice(),cMapUrl:'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/cmaps/',cMapPacked:true,standardFontDataUrl:'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/standard_fonts/'}).promise;
     if(doc.numPages>20){t.className='hint err';t.textContent='PDF com páginas demais (máximo 20).';return}
     var achou=0,prev=null,primeira=null;
     for(var n=1;n<=doc.numPages;n++){

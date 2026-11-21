@@ -307,7 +307,7 @@ async function iniciar(){
 /* ---------- visualizar o PDF (pdf.js) ---------- */
 async function renderPdf(){
   pdfjsLib.GlobalWorkerOptions.workerSrc=URL.createObjectURL(new Blob([$('pdfworker').textContent],{type:'text/javascript'}));
-  var doc=await pdfjsLib.getDocument({data:pdfBytes.slice()}).promise;
+  var doc=await pdfjsLib.getDocument({data:pdfBytes.slice(),cMapUrl:'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/cmaps/',cMapPacked:true,standardFontDataUrl:'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/standard_fonts/'}).promise;
   var box=$('paginas');box.innerHTML='';ancoras=[];
   for(var n=1;n<=doc.numPages;n++){
     var pg=await doc.getPage(n),v1=pg.getViewport({scale:1}),vp=pg.getViewport({scale:2});
